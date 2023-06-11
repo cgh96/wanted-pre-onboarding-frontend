@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - Fix/deploy
 
 jobs:
   build:
@@ -24,10 +25,9 @@ jobs:
         run: CI=false npm run build --if-present
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ap-northeast-2
       - name: Deploy to S3
         env:
