@@ -3,6 +3,9 @@ import reset from "styled-reset";
 
 const GlobalStyles = createGlobalStyle`
     ${reset}
+    :root {
+        --max-width: 1200px;
+    }
     a{
         text-decoration: none;
         color: inherit;
