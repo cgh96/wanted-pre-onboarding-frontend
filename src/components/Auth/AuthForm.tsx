@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import useRedirectByJwt from "hooks/useRedirectByJwt";
 import useValidation from "./hooks/useValidation";
 import usePathname from "./hooks/usePathname";
 import useRegister from "./hooks/useRegister";
 import useLogin from "./hooks/useLogin";
 
 import { Form, Button } from "./styles";
-import InputBox from "./Input";
+import AuthInput from "./AuthInput";
 
 function AuthForm() {
   const navigate = useNavigate();
+  useRedirectByJwt();
 
   const [signUp] = useRegister();
   const [signIn] = useLogin();
@@ -55,7 +57,7 @@ function AuthForm() {
     <Form onSubmit={handleSubmit}>
       <fieldset>
         <legend>{text}</legend>
-        <InputBox
+        <AuthInput
           id="email"
           testId="email-input"
           handleValue={handleEmail}
@@ -64,7 +66,7 @@ function AuthForm() {
           title="이메일"
           validation={emailValidation}
         />
-        <InputBox
+        <AuthInput
           id="password"
           testId="password-input"
           handleValue={handlePassword}

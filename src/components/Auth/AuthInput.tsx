@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Label, Input, GuideMsg } from "./styles";
 
-interface InputBoxProps {
+interface AuthInputProps {
   handleValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   testId: string;
@@ -11,7 +11,7 @@ interface InputBoxProps {
   validation: boolean;
 }
 
-function InputBox({
+function AuthInput({
   handleValue,
   value,
   testId,
@@ -19,7 +19,7 @@ function InputBox({
   type,
   title,
   validation,
-}: InputBoxProps) {
+}: AuthInputProps) {
   const [focus, setFocus] = useState<boolean>(false);
 
   const handleFocus = () => {
@@ -58,4 +58,4 @@ function InputBox({
   );
 }
 
-export default InputBox;
+export default AuthInput;
