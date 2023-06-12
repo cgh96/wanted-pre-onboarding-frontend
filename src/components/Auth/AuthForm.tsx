@@ -4,13 +4,16 @@ import { useNavigate } from "react-router-dom";
 import useValidation from "./hooks/useValidation";
 import usePathname from "./hooks/usePathname";
 import useRegister from "./hooks/useRegister";
+import useLogin from "./hooks/useLogin";
 
 import { Form, Button } from "./styles";
 import InputBox from "./Input";
 
 function AuthForm() {
   const navigate = useNavigate();
+
   const [signUp] = useRegister();
+  const [signIn] = useLogin();
 
   const [isSignin] = usePathname();
   const [email, setEmail] = useState("");
@@ -32,10 +35,19 @@ function AuthForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = await signUp(email, password);
 
-    if (data.data === "") {
-      navigate("/signin");
+    if (isSignin) {
+      const data = await signIn(email, password);
+
+      if (data.data) {
+        navigate("/todo");
+      }
+    } else {
+      const data = await signUp(email, password);
+
+      if (data.data === "") {
+        navigate("/signin");
+      }
     }
   };
 
