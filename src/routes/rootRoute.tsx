@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthPage from "pages/authPage";
 import LandingPage from "pages/landingPage";
-import TodoPage from "pages/TodoPage";
+import TodoPage from "pages/todoPage";
 import RootLayout from "pages/layout";
 
 function RootRoute() {
