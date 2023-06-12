@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import useRedirectByJwt from "hooks/useRedirectByJwt";
 import useValidation from "./hooks/useValidation";
 import usePathname from "./hooks/usePathname";
 import useRegister from "./hooks/useRegister";
@@ -12,7 +11,6 @@ import AuthInput from "./AuthInput";
 
 function AuthForm() {
   const navigate = useNavigate();
-  useRedirectByJwt();
 
   const [signUp] = useRegister();
   const [signIn] = useLogin();
