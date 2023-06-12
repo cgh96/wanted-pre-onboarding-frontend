@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import Header from "components/Header/Header";
 
 const Main = styled.main`
+  position: relative;
+  height: 100vh;
   padding-bottom: 200px;
 
   @media ${breakpoints.md} {
