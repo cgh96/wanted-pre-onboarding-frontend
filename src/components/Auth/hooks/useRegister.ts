@@ -2,10 +2,7 @@
 import axios from "axios";
 import client from "axiosInstance/client";
 
-export type AxiosResponseType = {
-  data: null | any;
-  error: unknown;
-};
+import type { AxiosResponseType } from "../types";
 
 const useRegister = () => {
   const signUp = async (
