@@ -27,7 +27,6 @@ const useRegister = () => {
   ): Promise<AxiosResponseType<any>> => {
     try {
       const data = await signUpAPI(email, password);
-      console.log(data);
       return { data, error: null };
     } catch (e) {
       if (axios.isAxiosError(e)) {
