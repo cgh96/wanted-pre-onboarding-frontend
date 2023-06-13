@@ -41,6 +41,7 @@ function AuthForm() {
 
       if (data !== null) {
         navigate("/todo");
+        window.location.reload();
       }
     } else {
       const { data } = await signUp(email, password);
