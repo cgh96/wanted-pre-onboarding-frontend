@@ -61,7 +61,7 @@ function AuthForm() {
           testId="email-input"
           handleValue={handleEmail}
           value={email}
-          type="email"
+          type="text"
           title="이메일"
           validation={emailValidation}
         />

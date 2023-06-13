@@ -31,7 +31,7 @@ function AuthInput({
   };
 
   const guideMsg =
-    type === "email"
+    type === "text"
       ? "'@'를 포함해주세요"
       : "비밀번호는 8글자 이상으로 해주세요.";
 

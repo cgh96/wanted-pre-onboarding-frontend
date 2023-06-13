@@ -34,3 +34,23 @@ https://d3pqh3d27ys02.cloudfront.net
 <br><br>
 
 ## # 폴더 구조
+
+```
+├─axiosInstance  // axios 객체 생성
+├─components
+│  ├─Auth
+│  │  └─hooks
+│  ├─Header
+│  └─Todo
+│      └─hooks
+├─hooks   // 공통적으로 사용할 custom hook
+├─pages   // page단위 컴포넌트
+│  ├─authPage
+│  ├─landingPage
+│  └─todoPage
+├─routes  //라우팅
+├─styles // css 관련 파일들 (breakpoints, css reset 등)
+└─types  // 공통적으로 사용할 type들 선언
+
+
+```
