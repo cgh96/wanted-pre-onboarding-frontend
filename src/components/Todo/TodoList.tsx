@@ -37,7 +37,9 @@ function TodoList({ update, isUpdate }: TodoListProps) {
   };
 
   useEffect(() => {
-    getData();
+    if (localStorage.getItem("jwt")) {
+      getData();
+    }
   }, [update]);
 
   return (
