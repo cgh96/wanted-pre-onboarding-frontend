@@ -1,4 +1,6 @@
+import { AxiosError } from "axios";
+
 export type AxiosResponseType<T> = {
   data: null | T;
-  error: unknown;
+  error: null | AxiosError;
 };

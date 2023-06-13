@@ -8,6 +8,7 @@ const Main = styled.main`
   position: relative;
   height: 100vh;
   padding-bottom: 200px;
+  overflow-y: scroll;
 
   @media ${breakpoints.md} {
     padding-top: 100px;

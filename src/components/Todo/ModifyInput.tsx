@@ -1,11 +1,17 @@
+import { useState } from "react";
 import { Button, Input } from "./styles";
+import type { TodoType } from "./types";
 
 interface ModifyInputProps {
-  id: number;
+  todo: TodoType;
   handleEdit: () => void;
 }
 
-function ModifyInput({ id, handleEdit }: ModifyInputProps) {
+function ModifyInput({ todo, handleEdit }: ModifyInputProps) {
+  const [modifyTodo] = useState<TodoType>({ ...todo });
+
+  // const [modifyValue] = useState(todo.todo);
+
   const handleSubmit = () => {
     handleEdit();
   };
@@ -16,7 +22,11 @@ function ModifyInput({ id, handleEdit }: ModifyInputProps) {
 
   return (
     <>
-      <Input id={`${id}`} data-testid="modify-input" />
+      <Input
+        id={`${todo.id}`}
+        data-testid="modify-input"
+        value={modifyTodo.todo}
+      />
       <Button type="button" data-testid="submit-button" onClick={handleSubmit}>
         제출
       </Button>

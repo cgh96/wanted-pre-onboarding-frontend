@@ -4,8 +4,10 @@ import { Button } from "./styles";
 
 import ModifyInput from "./ModifyInput";
 
+import type { TodoType } from "./types";
+
 interface TodoItemProps {
-  id: number;
+  todo: TodoType;
 }
 
 const Li = styled.li`
@@ -26,7 +28,7 @@ const Li = styled.li`
   }
 `;
 
-function TodoItem({ id }: TodoItemProps) {
+function TodoItem({ todo }: TodoItemProps) {
   const [edit, setEdit] = useState<boolean>(false);
 
   const handleEdit = () => {
@@ -35,12 +37,12 @@ function TodoItem({ id }: TodoItemProps) {
 
   return (
     <Li>
-      {edit && <ModifyInput id={id} handleEdit={handleEdit} />}
+      {edit && <ModifyInput todo={todo} handleEdit={handleEdit} />}
       {!edit && (
         <>
-          <label htmlFor={`${id}`}>
-            <input id={`${id}`} type="checkbox" />
-            <span>TODO 1 - example</span>
+          <label htmlFor={`${todo.id}`}>
+            <input id={`${todo.id}`} type="checkbox" />
+            <span>{todo.todo}</span>
           </label>
           <Button
             type="button"

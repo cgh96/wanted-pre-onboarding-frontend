@@ -36,7 +36,10 @@ const useCreateTodo = () => {
       const data = await createTodoAPI(todo);
       return { data, error: null };
     } catch (e) {
-      return { data: null, error: e };
+      if (axios.isAxiosError(e)) {
+        return { data: null, error: e };
+      }
+      throw e;
     }
   };
 
