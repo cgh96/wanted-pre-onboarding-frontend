@@ -4,6 +4,7 @@ import { Button } from "./styles";
 
 import ModifyInput from "./ModifyInput";
 import useUpdateTodo from "./hooks/useUpateTodo";
+import useDeleteTodo from "./hooks/useDeleteTodo";
 
 import type { TodoType } from "./types";
 
@@ -27,12 +28,14 @@ const Li = styled.li`
 
 interface TodoItemProps {
   todo: TodoType;
+  isUpdate: () => void;
 }
 
-function TodoItem({ todo }: TodoItemProps) {
+function TodoItem({ todo, isUpdate }: TodoItemProps) {
   const [edit, setEdit] = useState<boolean>(false);
   const [check, setCheck] = useState<boolean>(todo.isCompleted);
   const [updateTodo] = useUpdateTodo();
+  const [deleteTodo] = useDeleteTodo();
 
   const handleEdit = () => {
     setEdit(!edit);
@@ -45,12 +48,24 @@ function TodoItem({ todo }: TodoItemProps) {
     });
     if (data) {
       setCheck(data.isCompleted);
+      isUpdate();
+    }
+  };
+
+  const handleDelete = async () => {
+    const { data } = await deleteTodo({
+      ...todo,
+    });
+    if (data) {
+      isUpdate();
     }
   };
 
   return (
     <Li>
-      {edit && <ModifyInput todo={todo} handleEdit={handleEdit} />}
+      {edit && (
+        <ModifyInput todo={todo} handleEdit={handleEdit} isUpdate={isUpdate} />
+      )}
       {!edit && (
         <>
           <label htmlFor={`${todo.id}`}>
@@ -69,7 +84,11 @@ function TodoItem({ todo }: TodoItemProps) {
           >
             수정
           </Button>
-          <Button type="button" data-testid="delete-button">
+          <Button
+            type="button"
+            data-testid="delete-button"
+            onClick={handleDelete}
+          >
             삭제
           </Button>
         </>

@@ -33,8 +33,8 @@ const useCreateTodo = () => {
     todo: string,
   ): Promise<AxiosResponseType<TodoType>> => {
     try {
-      const data = await createTodoAPI(todo);
-      return { data, error: null };
+      const todos = await createTodoAPI(todo);
+      return { data: todos, error: null };
     } catch (e) {
       if (axios.isAxiosError(e)) {
         return { data: null, error: e };

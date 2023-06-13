@@ -19,7 +19,12 @@ const TodoListWrapper = styled.div`
   }
 `;
 
-function TodoList() {
+interface TodoListProps {
+  update: boolean;
+  isUpdate: () => void;
+}
+
+function TodoList({ update, isUpdate }: TodoListProps) {
   const [data, setData] = useState<AxiosResponseType<TodoType[]>>({
     data: null,
     error: null,
@@ -33,14 +38,14 @@ function TodoList() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [update]);
 
   return (
     <TodoListWrapper>
       {data.error && <h2>Error가 발생했습니다..!</h2>}
       <ul>
         {data.data?.map((e) => (
-          <TodoItem todo={e} key={e.id} />
+          <TodoItem todo={e} key={e.id} isUpdate={isUpdate} />
         ))}
       </ul>
     </TodoListWrapper>

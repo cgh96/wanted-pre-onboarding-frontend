@@ -11,7 +11,11 @@ const TodoInputWrapper = styled.div`
   padding: 1rem;
 `;
 
-function TodoInput() {
+interface TodoInputProps {
+  isUpdate: () => void;
+}
+
+function TodoInput({ isUpdate }: TodoInputProps) {
   const [todo, setTodo] = useState<TodoType>({
     todo: "",
     isCompleted: false,
@@ -23,6 +27,13 @@ function TodoInput() {
     setTodo({ ...todo, todo: e.target.value });
   };
 
+  const addTodo = async () => {
+    const { data } = await createTodo(todo.todo);
+    if (data) {
+      isUpdate();
+    }
+  };
+
   return (
     <TodoInputWrapper>
       <Input
@@ -30,11 +41,7 @@ function TodoInput() {
         value={todo.todo}
         onChange={handleTodoValue}
       />
-      <Button
-        type="button"
-        data-testid="new-todo-add-button"
-        onClick={() => createTodo(todo.todo)}
-      >
+      <Button type="button" data-testid="new-todo-add-button" onClick={addTodo}>
         추가
       </Button>
     </TodoInputWrapper>

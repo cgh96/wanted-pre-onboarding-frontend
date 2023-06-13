@@ -4,6 +4,8 @@ import useRedirectByJwt from "hooks/useRedirectByJwt";
 import TodoInput from "components/Todo/TodoInput";
 import TodoList from "components/Todo/TodoList";
 
+import { useState } from "react";
+
 const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
@@ -12,11 +14,17 @@ const Wrapper = styled.div`
 `;
 
 function TodoPage() {
+  const [update, setUpdate] = useState<boolean>(false);
   useRedirectByJwt();
+
+  const handleUpdate = () => {
+    setUpdate(!update);
+  };
+
   return (
     <Wrapper>
-      <TodoInput />
-      <TodoList />
+      <TodoInput isUpdate={handleUpdate} />
+      <TodoList update={update} isUpdate={handleUpdate} />
     </Wrapper>
   );
 }

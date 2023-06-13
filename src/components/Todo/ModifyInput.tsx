@@ -2,22 +2,35 @@ import { useState } from "react";
 import { Button, Input } from "./styles";
 import type { TodoType } from "./types";
 
+import useUpdateTodo from "./hooks/useUpateTodo";
+
 interface ModifyInputProps {
   todo: TodoType;
   handleEdit: () => void;
+  isUpdate: () => void;
 }
 
-function ModifyInput({ todo, handleEdit }: ModifyInputProps) {
-  const [modifyTodo] = useState<TodoType>({ ...todo });
+function ModifyInput({ todo, handleEdit, isUpdate }: ModifyInputProps) {
+  const [value, setValue] = useState(todo.todo);
+  const [updateTodo] = useUpdateTodo();
 
-  // const [modifyValue] = useState(todo.todo);
-
-  const handleSubmit = () => {
-    handleEdit();
+  const handleSubmit = async () => {
+    const { data } = await updateTodo({
+      ...todo,
+      todo: value,
+    });
+    if (data) {
+      isUpdate();
+      handleEdit();
+    }
   };
 
   const handleCancel = () => {
     handleEdit();
+  };
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
   };
 
   return (
@@ -25,7 +38,8 @@ function ModifyInput({ todo, handleEdit }: ModifyInputProps) {
       <Input
         id={`${todo.id}`}
         data-testid="modify-input"
-        value={modifyTodo.todo}
+        value={value}
+        onChange={handleInput}
       />
       <Button type="button" data-testid="submit-button" onClick={handleSubmit}>
         제출
