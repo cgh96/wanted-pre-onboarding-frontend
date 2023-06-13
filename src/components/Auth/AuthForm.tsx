@@ -37,15 +37,16 @@ function AuthForm() {
     e.preventDefault();
 
     if (isSignin) {
-      const data = await signIn(email, password);
+      const { data } = await signIn(email, password);
 
-      if (data.data) {
+      if (data !== null) {
         navigate("/todo");
+        window.location.reload();
       }
     } else {
-      const data = await signUp(email, password);
+      const { data } = await signUp(email, password);
 
-      if (data.data === "") {
+      if (data !== null) {
         navigate("/signin");
       }
     }
