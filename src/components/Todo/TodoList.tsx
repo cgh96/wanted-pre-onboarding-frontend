@@ -26,7 +26,6 @@ function TodoList() {
   });
   const [getTodos] = useGetTodos();
 
-  console.log(data);
   const getData = async () => {
     const todos = await getTodos();
     setData(todos);
@@ -41,7 +40,7 @@ function TodoList() {
       {data.error && <h2>Error가 발생했습니다..!</h2>}
       <ul>
         {data.data?.map((e) => (
-          <TodoItem todo={e} />
+          <TodoItem todo={e} key={e.id} />
         ))}
       </ul>
     </TodoListWrapper>

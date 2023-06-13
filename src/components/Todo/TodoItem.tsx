@@ -3,12 +3,9 @@ import { useState } from "react";
 import { Button } from "./styles";
 
 import ModifyInput from "./ModifyInput";
+import useUpdateTodo from "./hooks/useUpateTodo";
 
 import type { TodoType } from "./types";
-
-interface TodoItemProps {
-  todo: TodoType;
-}
 
 const Li = styled.li`
   width: 100%;
@@ -28,11 +25,27 @@ const Li = styled.li`
   }
 `;
 
+interface TodoItemProps {
+  todo: TodoType;
+}
+
 function TodoItem({ todo }: TodoItemProps) {
   const [edit, setEdit] = useState<boolean>(false);
+  const [check, setCheck] = useState<boolean>(todo.isCompleted);
+  const [updateTodo] = useUpdateTodo();
 
   const handleEdit = () => {
     setEdit(!edit);
+  };
+
+  const handleCheck = async () => {
+    const { data } = await updateTodo({
+      ...todo,
+      isCompleted: !todo.isCompleted,
+    });
+    if (data) {
+      setCheck(data.isCompleted);
+    }
   };
 
   return (
@@ -41,7 +54,12 @@ function TodoItem({ todo }: TodoItemProps) {
       {!edit && (
         <>
           <label htmlFor={`${todo.id}`}>
-            <input id={`${todo.id}`} type="checkbox" />
+            <input
+              id={`${todo.id}`}
+              type="checkbox"
+              checked={check}
+              onChange={handleCheck}
+            />
             <span>{todo.todo}</span>
           </label>
           <Button
